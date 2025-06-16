@@ -7,21 +7,21 @@
 
         {
             "name": "coeur_net_app",
-            "cwd": "front/coeur_net_app",
+            "cwd": "coeur_net_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug"
         },
         {
             "name": "coeur_net_app (profile mode)",
-            "cwd": "front/coeur_net_app",
+            "cwd": "coeur_net_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
             "name": "coeur_net_app (release mode)",
-            "cwd": "front/coeur_net_app",
+            "cwd": "coeur_net_app",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
