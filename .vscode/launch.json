@@ -10,7 +10,10 @@
             "cwd": "coeur_net_app",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "debug"
+            "flutterMode": "debug",
+            "args": [
+                "--web-port=62062"
+            ]
         },
         {
             "name": "coeur_net_app (profile mode)",
