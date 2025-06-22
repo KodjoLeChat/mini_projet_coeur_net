@@ -17,4 +17,9 @@ class UserRepository {
 
     return data.map((map) => Profile.fromMap(map)).toList();
   }
+
+  Future<Profile> user(String id) async {
+    final response = await client.get("users/$id");
+    return Profile.fromMap(response.data);
+  }
 }

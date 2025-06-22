@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignoutWidget extends ConsumerWidget {
-  const SignoutWidget({super.key});
+  final Color? iconColor;
+  const SignoutWidget({super.key, this.iconColor});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const title = "Déconnexion";
     return IconButton(
-      icon: const Icon(Icons.logout),
+      icon: Icon(Icons.logout, color: iconColor),
       tooltip: title,
       onPressed: () async {
         final confirmed = await showDialog<bool>(

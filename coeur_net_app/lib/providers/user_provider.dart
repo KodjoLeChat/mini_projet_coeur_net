@@ -27,6 +27,16 @@ final authSessionStream = StreamProvider<Session?>((ref) async* {
   yield* service.userSessionStream;
 });
 
+final currentUserProvider = AutoDisposeFutureProvider((ref) async {
+  final session = await ref.watch(authSessionStream.future);
+  if (session == null) return null;
+  final user = session.user;
+  final profile = await (await ref.watch(
+    userRepositoryProvider.future,
+  )).user(user.id);
+  return profile.copyWith(email: user.email);
+});
+
 final hasProfileProvider = AutoDisposeStreamProvider<bool>((ref) {
   final profileService = ref.watch(authServiceProvider);
   return profileService.hasProfile();
