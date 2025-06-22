@@ -1,15 +1,30 @@
 import 'package:coeur_net_app/notifiers/user_notifier.dart';
+import 'package:coeur_net_app/providers/api_service_provider.dart';
+import 'package:coeur_net_app/repository/user_repository.dart';
 import 'package:coeur_net_app/services/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final authServiceProvider = Provider<AuthService>((ref) {
-  return AuthService();
+final authServiceProvider = Provider((ref) => AuthService());
+
+final userRepositoryProvider = FutureProvider<UserRepository>((ref) async {
+  final apiService = await ref.watch(apiServiceProvider.future);
+  return UserRepository(client: apiService.client);
+});
+
+final userListProvider = FutureProvider((ref) async {
+  final userRepo = await ref.watch(userRepositoryProvider.future);
+  return userRepo.userList();
 });
 
 final authStateProvider = AutoDisposeStreamProvider<Session?>((ref) {
   final service = ref.watch(authServiceProvider);
   return service.authStateChanges;
+});
+
+final authSessionStream = StreamProvider<Session?>((ref) async* {
+  final service = ref.watch(authServiceProvider);
+  yield* service.userSessionStream;
 });
 
 final hasProfileProvider = AutoDisposeStreamProvider<bool>((ref) {

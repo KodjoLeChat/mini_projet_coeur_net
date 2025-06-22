@@ -14,6 +14,7 @@ class UserNotifier extends StateNotifier<bool> {
   Future<void> _executeAction(Future<void> Function() action) async {
     try {
       state = true;
+      Future.delayed(const Duration(seconds: 5));
       await action();
     } catch (error) {
       debugPrint('error in execution action :  $error');
@@ -38,6 +39,12 @@ class UserNotifier extends StateNotifier<bool> {
         email: param.email,
         password: param.password,
       );
+    });
+  }
+
+  Future<void> signout() async {
+    await _executeAction(() async {
+      await _authService.signOut();
     });
   }
 }

@@ -4,15 +4,15 @@
 .env
 *.env
 .idea/
+setup_admin.py
 
-
-back/__pycache__/
-back/*.pyc
-back/.venv/
-back/env/
-back/venv/
-back/.mypy_cache/
-back/.pytest_cache/
-back/.coverage
-back/coverage.xml
-back/htmlcov/
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/env/
+**/venv/
+**/.mypy_cache/
+**/.pytest_cache/
+**/.coverage
+**/coverage.xml
+**/htmlcov/
