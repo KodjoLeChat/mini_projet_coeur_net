@@ -1,6 +1,5 @@
 import 'package:coeur_net_app/providers/tensor_provider.dart';
 import 'package:coeur_net_app/views/widget/error_presentation.dart';
-import 'package:coeur_net_app/views/widget/signout_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +10,7 @@ class TensorWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: Text('Mon tensor'), actions: [SignoutWidget()]),
+      appBar: AppBar(title: Text('Mon tensor')),
 
       body: Center(child: _Content()),
       floatingActionButton: FloatingActionButton(
@@ -46,6 +45,7 @@ class _TensorChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: 400,
       height: 300,
@@ -62,8 +62,8 @@ class _TensorChart extends StatelessWidget {
                       x: entry.key,
                       barRods: [
                         BarChartRodData(
-                          toY: entry.value,
-                          color: Colors.blueAccent,
+                          toY: double.parse((entry.value.toStringAsFixed(3))),
+                          color: theme.colorScheme.primary,
                         ),
                       ],
                     ),
