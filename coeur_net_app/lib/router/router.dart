@@ -24,6 +24,7 @@ final _shellNavigatorMyProfileKey = GlobalKey<NavigatorState>(
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
   final hasProfileStream = ref.watch(hasProfileProvider);
+  final isAdminProvider = ref.watch(currentUserIsAdmin);
 
   return GoRouter(
     initialLocation: '/tensor',
@@ -57,10 +58,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             navigatorKey: _shellNavigatorTensorKey,
             routes: [tensorRouter],
           ),
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorUserListKey,
-            routes: [userListRouter],
-          ),
+          if (isAdminProvider.valueOrNull == true)
+            StatefulShellBranch(
+              navigatorKey: _shellNavigatorUserListKey,
+              routes: [userListRouter],
+            ),
           StatefulShellBranch(
             navigatorKey: _shellNavigatorMyProfileKey,
             routes: [myProfileRouter],
