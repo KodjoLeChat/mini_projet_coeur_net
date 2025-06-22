@@ -5,12 +5,11 @@ class AuthService {
 
   User? get currentUser => _client.auth.currentUser;
 
-  Stream<User?> get userStream {
-    return _client.auth.onAuthStateChange.map((data) {
-      final Session? session = data.session;
-      return session?.user;
-    });
-  }
+  Stream<User?> get userStream =>
+      userSessionStream.map((session) => session?.user);
+
+  Stream<Session?> get userSessionStream =>
+      _client.auth.onAuthStateChange.map((data) => data.session);
 
   Stream<Session?> get authStateChanges =>
       _client.auth.onAuthStateChange.map((event) {
@@ -28,8 +27,6 @@ class AuthService {
 
   Stream<bool> hasProfile() async* {
     final userId = _client.auth.currentUser?.id;
-    /*yield true;
-    return;*/
     if (userId == null) {
       yield false;
       return;

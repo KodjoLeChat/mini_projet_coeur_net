@@ -1,5 +1,5 @@
-import 'package:coeur_net_app/views/profile/create_profile_widget.dart';
 import 'package:coeur_net_app/home_page.dart';
+import 'package:coeur_net_app/views/profile/create_profile_widget.dart';
 import 'package:coeur_net_app/loading_page.dart';
 import 'package:coeur_net_app/views/login/login_widget.dart';
 import 'package:coeur_net_app/providers/user_provider.dart';
