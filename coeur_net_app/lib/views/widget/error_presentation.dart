@@ -18,7 +18,7 @@ class ErrorPresentation extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textColor = theme.colorScheme.onSurface;
-    final message = "Une erreur est survenue.";
+    final message = errorMessage ?? "Une erreur est survenue.";
     final dimension16 = 16.0;
     return Padding(
       padding: EdgeInsets.all(dimension16),

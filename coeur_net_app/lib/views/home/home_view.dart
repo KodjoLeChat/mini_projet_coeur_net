@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({
     super.key,
     required this.body,
@@ -16,9 +16,12 @@ class HomeView extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isAdminProvider = ref.watch(currentUserIsAdmin);
+
     final whiteColor = Colors.white;
     final theme = Theme.of(context);
+
     return Scaffold(
       body: Row(
         children: [
@@ -48,14 +51,15 @@ class HomeView extends StatelessWidget {
                 selectedIcon: Icon(Icons.bar_chart_outlined),
                 label: Text("Tensor", style: TextStyle(color: whiteColor)),
               ),
-              NavigationRailDestination(
-                icon: Icon(Icons.group_outlined, color: whiteColor),
-                selectedIcon: Icon(Icons.group_outlined),
-                label: Text(
-                  "Utilisateurs",
-                  style: TextStyle(color: whiteColor),
+              if (isAdminProvider.valueOrNull == true)
+                NavigationRailDestination(
+                  icon: Icon(Icons.group_outlined, color: whiteColor),
+                  selectedIcon: Icon(Icons.group_outlined),
+                  label: Text(
+                    "Utilisateurs",
+                    style: TextStyle(color: whiteColor),
+                  ),
                 ),
-              ),
               NavigationRailDestination(
                 icon: Icon(Icons.person_outlined, color: whiteColor),
                 selectedIcon: Icon(Icons.person_outlined),
