@@ -4,11 +4,32 @@ import 'package:coeur_net_app/views/login/email_text_form_field.dart';
 import 'package:coeur_net_app/views/login/password_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class LoginWidget extends StatelessWidget {
+class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
+
+  @override
+  State<LoginWidget> createState() => _LoginWidgetState();
+}
+
+class _LoginWidgetState extends State<LoginWidget> {
+  String? _cachedEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEmail();
+  }
+
+  Future<void> _loadEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _cachedEmail = prefs.getString('cached_email') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +45,9 @@ class LoginWidget extends StatelessWidget {
           ),
           child: ProviderScope(
             overrides: [
-              loginViewModel.overrideWith((ref) => (email: '', password: '')),
+              loginViewModel.overrideWith(
+                (ref) => (email: _cachedEmail ?? '', password: ''),
+              ),
             ],
             child: _Form(),
           ),

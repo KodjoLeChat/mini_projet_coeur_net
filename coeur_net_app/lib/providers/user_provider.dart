@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:coeur_net_app/models/profile.dart';
 import 'package:coeur_net_app/notifiers/user_notifier.dart';
 import 'package:coeur_net_app/providers/api_service_provider.dart';
+import 'package:coeur_net_app/providers/task_provider.dart';
 import 'package:coeur_net_app/repository/user_repository.dart';
 import 'package:coeur_net_app/services/api_service.dart';
 import 'package:coeur_net_app/services/auth_service.dart';
@@ -18,7 +19,19 @@ final userRepositoryProvider = FutureProvider<UserRepository>((ref) async {
 
 final userListProvider = FutureProvider((ref) async {
   final userRepo = await ref.watch(userRepositoryProvider.future);
-  return userRepo.userList();
+  final taskRepo = await ref.watch(taskRepositoryProvider.future);
+  final allUsers = await userRepo.userList();
+  final allTasks = await taskRepo.allTaskList();
+
+  final users =
+      allUsers
+          .map(
+            (user) => user.copyWith(
+              tasks: allTasks.where((task) => task.userId == user.id).toList(),
+            ),
+          )
+          .toList();
+  return users;
 });
 
 final authStateProvider = AutoDisposeStreamProvider<Session?>((ref) {

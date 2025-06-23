@@ -51,6 +51,20 @@ class HomeView extends ConsumerWidget {
                 selectedIcon: Icon(Icons.bar_chart_outlined),
                 label: Text("Tensor", style: TextStyle(color: whiteColor)),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.task_outlined, color: whiteColor),
+                selectedIcon: Icon(Icons.task_outlined),
+                label: Text("Mes tâches", style: TextStyle(color: whiteColor)),
+              ),
+              if (isAdminProvider.valueOrNull == true)
+                NavigationRailDestination(
+                  icon: Icon(Icons.task_outlined, color: whiteColor),
+                  selectedIcon: Icon(Icons.task_outlined),
+                  label: Text(
+                    "Toutes les tâches",
+                    style: TextStyle(color: whiteColor),
+                  ),
+                ),
               if (isAdminProvider.valueOrNull == true)
                 NavigationRailDestination(
                   icon: Icon(Icons.group_outlined, color: whiteColor),
