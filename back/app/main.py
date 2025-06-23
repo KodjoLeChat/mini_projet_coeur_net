@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from app.api import tensor, user
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,18 +8,14 @@ from app.api import task
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:62062",  
-    "http://localhost",      
-    "http://127.0.0.1",
-]
+origins = os.getenv("CORS_ORIGINS", "").split(",")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # liste des origines autorisées
+    allow_origins=origins, 
     allow_credentials=True,
-    allow_methods=["*"],    # autoriser toutes les méthodes HTTP (GET, POST, ...)
-    allow_headers=["*"],    # autoriser tous les headers
+    allow_methods=["*"],    
+    allow_headers=["*"],   
 )
 
 
