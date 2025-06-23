@@ -1,3 +1,4 @@
+import 'package:coeur_net_app/models/task.dart';
 import 'package:flutter/foundation.dart';
 
 enum Role {
@@ -16,8 +17,16 @@ class Profile {
   final String? username;
   final String? bio;
   final Role? role;
+  final List<Task> tasks;
 
-  const Profile({this.id, this.username, this.bio, this.email, this.role});
+  const Profile({
+    this.id,
+    this.username,
+    this.bio,
+    this.email,
+    this.role,
+    this.tasks = const [],
+  });
 
   factory Profile.fromMap(Map<String, dynamic> map) => Profile(
     id: map['id'],
@@ -40,17 +49,19 @@ class Profile {
     String? username,
     String? bio,
     Role? role,
+    List<Task>? tasks,
   }) => Profile(
     id: id ?? this.id,
     email: email ?? this.email,
     username: username ?? this.username,
     bio: bio ?? this.bio,
     role: role ?? this.role,
+    tasks: tasks ?? this.tasks,
   );
 
   @override
   String toString() =>
-      'Profile(id: $id, email : $email, username: $username, bio: $bio, role : $role)';
+      'Profile(id: $id, email : $email, username: $username, bio: $bio, role : $role, task : $tasks)';
 
   static Profile get mockProfile => Profile(
     id: '1',

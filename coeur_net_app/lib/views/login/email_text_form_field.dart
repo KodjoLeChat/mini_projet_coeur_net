@@ -1,6 +1,7 @@
 import 'package:coeur_net_app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmailTextFormField extends ConsumerWidget {
   const EmailTextFormField({super.key});
@@ -15,10 +16,13 @@ class EmailTextFormField extends ConsumerWidget {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(),
       ),
-      onChanged: (value) {
+      onChanged: (value) async {
         final provider = ref.read(loginViewModel.notifier);
         final state = provider.state;
         provider.state = (email: value, password: state.password);
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('cached_email', value);
       },
       validator:
           (value) =>

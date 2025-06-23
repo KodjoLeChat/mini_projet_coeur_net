@@ -1,6 +1,8 @@
+import 'package:coeur_net_app/router/all_task_router.dart';
 import 'package:coeur_net_app/router/loading_router.dart';
 import 'package:coeur_net_app/router/login_router.dart';
 import 'package:coeur_net_app/router/my_profile_router.dart';
+import 'package:coeur_net_app/router/task_router.dart';
 import 'package:coeur_net_app/router/tensor_router.dart';
 import 'package:coeur_net_app/router/user_list_router.dart';
 import 'package:coeur_net_app/views/home/home_page.dart';
@@ -18,6 +20,13 @@ final _shellNavigatorUserListKey = GlobalKey<NavigatorState>(
 );
 final _shellNavigatorMyProfileKey = GlobalKey<NavigatorState>(
   debugLabel: 'shell_my_profile',
+);
+final _shellNavigatorTaskKey = GlobalKey<NavigatorState>(
+  debugLabel: 'shell_task',
+);
+
+final _shellNavigatorAllTaskKey = GlobalKey<NavigatorState>(
+  debugLabel: 'shell_task',
 );
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -48,6 +57,15 @@ final routerProvider = Provider<GoRouter>((ref) {
             navigatorKey: _shellNavigatorTensorKey,
             routes: [tensorRouter],
           ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorTaskKey,
+            routes: [taskRouter],
+          ),
+          if (isAdminProvider.valueOrNull == true)
+            StatefulShellBranch(
+              navigatorKey: _shellNavigatorAllTaskKey,
+              routes: [allTaskRouter],
+            ),
           if (isAdminProvider.valueOrNull == true)
             StatefulShellBranch(
               navigatorKey: _shellNavigatorUserListKey,

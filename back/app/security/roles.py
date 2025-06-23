@@ -28,7 +28,7 @@ def _get_roles(authorization: str) -> list:
     decoded = _decode_jwt(authorization)
     return decoded.get("app_metadata", {}).get("roles", [])
 
-def _get_current_user_id(authorization: str) -> str:
+def get_current_user_id(authorization: str = Header(...)) -> str:
     decoded = _decode_jwt(authorization)
     user_id = decoded.get("sub")
     if not user_id:
@@ -36,7 +36,7 @@ def _get_current_user_id(authorization: str) -> str:
     return user_id
 
 def get_current_user(authorization: str = Header(...)):
-    user_id = _get_current_user_id(authorization)
+    user_id = get_current_user_id(authorization)
     return get_user_by_id(user_id)
 
 
@@ -47,7 +47,7 @@ def is_admin(authorization: str = Header(...)) -> bool:
     return True
 
 def _can_get_or_edt(user_id:str, authorization:str,detail="You are not authorized") -> bool:
-    current_user_id = _get_current_user_id(authorization)
+    current_user_id = get_current_user_id(authorization)
     roles = _get_roles(authorization)
     if "admin" in roles:
         return True

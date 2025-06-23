@@ -83,8 +83,9 @@ class _Content extends ConsumerWidget {
       data: (profiles) {
         if (profiles.isEmpty) {
           return const EmptyStateWidget(
-            title: 'Aucun profil trouvé',
-            subtitle: 'Ajoutez des utilisateurs pour commencer.',
+            title: 'Vous êtes seul pour le moment',
+            subtitle:
+                'Vous pouvez ajouter vos collègues en appuyant sur le bouton +',
           );
         }
 
