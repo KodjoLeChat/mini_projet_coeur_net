@@ -24,41 +24,4 @@ class AuthService {
   }) async {
     await _client.auth.signInWithPassword(email: email, password: password);
   }
-
-  Stream<bool> hasProfile() async* {
-    final userId = _client.auth.currentUser?.id;
-    if (userId == null) {
-      yield false;
-      return;
-    }
-    final initial =
-        await _client
-            .from('profiles')
-            .select('id')
-            .eq('id', userId)
-            .maybeSingle();
-    yield initial != null;
-  }
-
-  Future<void> createProfile({
-    required String username,
-    required String bio,
-  }) async {
-    final userId = _client.auth.currentUser?.id;
-    if (userId == null) {
-      throw Exception('Utilisateur non connecté');
-    }
-
-    final response =
-        await _client.from('profiles').insert({
-          'id': userId,
-          'username': username,
-          'bio': bio,
-          'is_admin': false,
-        }).select();
-
-    if (response.isEmpty) {
-      throw Exception('Création du profil échouée (réponse vide)');
-    }
-  }
 }
