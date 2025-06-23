@@ -18,13 +18,13 @@ def create_user_auth(email, role):
     if response.status_code not in [200, 201]:
         raise HTTPException(
             status_code=response.status_code,
-            detail=f"Erreur à la création de l'utilisateur Auth : {response.text}"
+            detail=f"Error while creating auth user : {response.text}"
         )
     user = response.json()
     user_id = user.get("id") or user.get("user", {}).get("id")
     if not user_id:
         raise HTTPException(
             status_code=response.status_code,
-            detail=f"Impossible d'extraire l'id utilisateur : {user}"
+            detail=f"Can not extract userId : {user}"
         )
     return {"user": user, "user_id": user_id}

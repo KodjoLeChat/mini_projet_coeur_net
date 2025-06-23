@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coeur_net_app/models/profile.dart';
 import 'package:coeur_net_app/notifiers/user_notifier.dart';
 import 'package:coeur_net_app/providers/api_service_provider.dart';
 import 'package:coeur_net_app/repository/user_repository.dart';
@@ -56,11 +57,6 @@ final currentUserIsAdmin = AutoDisposeFutureProvider((ref) async {
   return role == 'admin';
 });
 
-final hasProfileProvider = AutoDisposeStreamProvider<bool>((ref) {
-  final profileService = ref.watch(authServiceProvider);
-  return profileService.hasProfile();
-});
-
 final userNotifierProvider =
     AutoDisposeStateNotifierProviderFamily<UserNotifier, bool, String>(
       (ref, key) => UserNotifier(ref),
@@ -71,6 +67,6 @@ final loginViewModel =
       (_) => throw UnimplementedError('provider for login unimplemented'),
     );
 
-final createProfileViewModel = AutoDisposeStateProvider<
-  ({String username, String bio})
->((_) => throw UnimplementedError('provider for create profile unimplemented'));
+final createProfileViewModel = AutoDisposeStateProvider<Profile>(
+  (_) => throw UnimplementedError('provider for create profile unimplemented'),
+);

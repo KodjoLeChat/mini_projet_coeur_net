@@ -2,16 +2,18 @@ import requests
 from fastapi import HTTPException
 from app.config import  SUPABASE_DB_URL
 from app.utils.headers import headers
+from app.models.create_user_request import CreateUserRequest
 
-
-def create_profile(user_id, username, bio):
+def create_profile(user_id, payload : CreateUserRequest, role : str):
     response = requests.post(
         f"{SUPABASE_DB_URL}/profiles",
         headers=headers(return_representation=True),
         json={
             "id": user_id,
-            "username": username,
-            "bio": bio,
+            "username": payload.username,
+            "bio": payload.bio,
+            "role":role,
+            "email" : payload.email
         }
     )
     if response.status_code not in [200, 201]:

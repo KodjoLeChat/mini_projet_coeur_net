@@ -8,7 +8,7 @@ class UsernameTextFormField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final username = ref.watch(
-      createProfileViewModel.select((data) => data.bio),
+      createProfileViewModel.select((data) => data.username),
     );
     return TextFormField(
       initialValue: username,
@@ -30,7 +30,7 @@ class UsernameTextFormField extends ConsumerWidget {
       onChanged: (value) {
         final provider = ref.read(createProfileViewModel.notifier);
         final state = provider.state;
-        provider.state = (bio: state.bio, username: value);
+        provider.state = state.copyWith(username: value);
       },
     );
   }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class AlertDialogWidget extends StatelessWidget {
   final String title;
   final String content;
+  final Color? actionColor;
   const AlertDialogWidget({
     required this.title,
     required this.content,
+    this.actionColor,
     super.key,
   });
 
@@ -21,7 +23,7 @@ class AlertDialogWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text("Oui"),
+          child: Text("Oui", style: TextStyle(color: actionColor)),
         ),
       ],
     );

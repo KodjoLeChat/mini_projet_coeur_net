@@ -1,5 +1,6 @@
 import 'package:coeur_net_app/models/profile.dart';
 import 'package:coeur_net_app/providers/user_provider.dart';
+import 'package:coeur_net_app/views/profile/create_profile_widget.dart';
 import 'package:coeur_net_app/views/profile/profile_list_view.dart';
 import 'package:coeur_net_app/views/widget/empty_state_widget.dart';
 import 'package:coeur_net_app/views/widget/error_presentation.dart';
@@ -14,6 +15,41 @@ class ProfilePageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Profiles')),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
+        child: Consumer(
+          builder: (context, ref, _) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 16.0,
+              children: [
+                FloatingActionButton(
+                  heroTag: 'refreshFab',
+                  onPressed: () {
+                    ref.invalidate(userListProvider);
+                  },
+                  tooltip: 'Refresh',
+                  child: const Icon(Icons.refresh),
+                ),
+                FloatingActionButton(
+                  heroTag: 'addFab',
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => const CreateProfileModalWrapper(),
+                    );
+                  },
+                  tooltip: 'Ajouter',
+                  child: const Icon(Icons.add),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
 
       body: Center(
         child: ConstrainedBox(

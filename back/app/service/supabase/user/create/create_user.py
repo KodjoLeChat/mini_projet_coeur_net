@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from app.service.supabase.user.create.create_user_auth import create_user_auth
 from app.service.supabase.user.create.create_profile import create_profile
-from app.service.supabase.user.delete import delete_user_auth
 from app.models.create_user_request import CreateUserRequest
+from app.service.supabase.user.delete.delete_user_auth import delete_user_auth
 
 
 def create_user(payload : CreateUserRequest,role= "user"):
@@ -14,7 +14,7 @@ def create_user(payload : CreateUserRequest,role= "user"):
     user_id = user_data["user_id"]
 
     try:
-        profile = create_profile(user_id, payload.username, payload.bio)
+        profile = create_profile(user_id, payload, role)
     except HTTPException as e:
         delete_response = delete_user_auth(user_id)
         raise HTTPException(
