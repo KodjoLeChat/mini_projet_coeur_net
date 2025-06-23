@@ -38,7 +38,7 @@ final currentUserProvider = AutoDisposeFutureProvider((ref) async {
   final profile = await (await ref.watch(
     userRepositoryProvider.future,
   )).user(user.id);
-  return profile.copyWith(email: user.email);
+  return profile;
 });
 
 final currentUserRoleProvider = AutoDisposeFutureProvider((ref) async {

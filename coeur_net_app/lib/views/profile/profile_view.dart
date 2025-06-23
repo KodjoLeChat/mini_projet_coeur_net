@@ -8,7 +8,14 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class ProfileView extends ConsumerWidget {
   final Profile profile;
-  const ProfileView({super.key, required this.profile});
+  final bool canDelete;
+  final bool isCurrentUserProfile;
+  const ProfileView({
+    super.key,
+    required this.profile,
+    this.canDelete = true,
+    this.isCurrentUserProfile = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,11 +53,11 @@ class ProfileView extends ConsumerWidget {
               ),
             ),
             title: Text(
-              "$username | ${profile.email} (${profile.role?.title})",
+              "$username | ${profile.email} (${isCurrentUserProfile ? 'vous' : profile.role?.title})",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             subtitle: Text(bio),
-            trailing: _DeleteButton(profile: profile),
+            trailing: canDelete ? _DeleteButton(profile: profile) : null,
           ),
         ),
       ),
