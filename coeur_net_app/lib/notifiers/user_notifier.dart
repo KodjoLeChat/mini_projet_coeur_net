@@ -68,6 +68,7 @@ class UserNotifier extends StateNotifier<bool> {
       final provider = await userRepository;
       await provider.update(profile);
       ref.invalidate(userListProvider);
+      ref.invalidate(currentUserProvider);
     });
   }
 }
