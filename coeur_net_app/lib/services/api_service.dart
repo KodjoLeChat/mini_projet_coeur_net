@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ApiService {
-  static final String baseUrl = "http://localhost:8000/";
+  static final String baseUrl = "https://mini-projet-coeur-net.onrender.com/";
   final Dio client;
   ApiService._(this.client);
 
