@@ -10,8 +10,7 @@ Mettre en place une architecture microservices :
 - **Une interface d’administration (CRUD)**
   - Chaque utilisateur peut gérer **ses propres données**
   - L’administrateur peut gérer **toutes les données**
-- **Une API permettant de générer un tenseur PyTorch aléatoire**
-- **Une visualisation graphique du tenseur côté frontend**
+- **Une visualisation graphique du tensor généré via l'API côté frontend**
 
 **Utiliser les mécanismes intégrés à Supabase pour la gestion des comptes et de la sécurité** :
 
@@ -182,6 +181,19 @@ source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
+
+## Sources et Ressources
+
+Le projet a été réalisé en s'appuyant sur différentes ressources, principalement pour la configuration du backend
+
+### Backend et Supabase
+
+- [Documentation officielle de FastAPI](https://fastapi.tiangolo.com/)
+- [Sécurité avec FastAPI (JWT/OAuth2)](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)
+- [Documentation Supabase](https://supabase.com/docs)
+- [ChatGPT (OpenAI)](https://chat.openai.com/) et [Perplexity AI](https://www.perplexity.ai/) — pour affiner la compréhension de certains concepts FastAPI et Supabase.
+- [PyTorch Tensors](https://pytorch.org/docs/stable/tensors.html) — utilisé pour la génération de tenseurs aléatoires côté API.
+- [HTTPie / Postman](https://www.postman.com/) — utilisé pour tester les endpoints API durant le développement.
 
 ## Auteur
 
